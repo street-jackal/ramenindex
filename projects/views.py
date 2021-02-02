@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 from projects.models import Project
 from projects.forms import ProjectForm 
@@ -30,10 +31,14 @@ def project_detail(request, pk):
 class CreatePostView(LoginRequiredMixin, CreateView): 
 
     model = Project
-    #set_colors(model)
     form_class = ProjectForm
     template_name = 'post.html'
     success_url = reverse_lazy('project_index')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.set_colors()
+        return HttpResponseRedirect(self.get_success_url())
 
 def signup(request):
     if request.method == 'POST':

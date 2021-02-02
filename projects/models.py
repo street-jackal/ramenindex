@@ -26,9 +26,9 @@ class Project(models.Model):
                                             processors=[ResizeToFill(400, 400)],
                                             format='JPEG',
                                             options={'quality': 60})
-    #color1 = models.CharField(max_length=100, default="100,100,100")
-    #color2 = models.CharField(max_length=100, default="100,100,100")
-    #color3 = models.CharField(max_length=100, default="100,100,100")
+    color0 = models.CharField(max_length=100, default="100,100,100")
+    color1 = models.CharField(max_length=100, default="100,100,100")
+    color2 = models.CharField(max_length=100, default="100,100,100")
 
     # create list of the dominant 3 colors in image, using k=6 clusters
     # used to make themed titles for each ramen detail page
@@ -39,9 +39,17 @@ class Project(models.Model):
         # strip off the opening and closing parens from get_palette output
         # return a list of the 3 most dominant colors
         return [str(dominant_colors[i])[1:-1] for i in range(3)]
-        #colorList =  [str(dominant_colors[i])[1:-1] for i in range(3)]
-        #self.color1 = colorList[0]
-        #self.color1 = colorList[1]
-        #self.color1 = colorList[2]
+
+    def set_colors(self):
+        color_thief = ColorThief(self.image.path)
+        dominant_colors = color_thief.get_palette(6,20)
+
+        # strip off the opening and closing parens from get_palette output
+        # return a list of the 3 most dominant colors
+        colorList =  [str(dominant_colors[i])[1:-1] for i in range(3)]
+        self.color0 = colorList[0]
+        self.color1 = colorList[1]
+        self.color2 = colorList[2]
+
     def __str__(self):
         return self.title
