@@ -11,7 +11,7 @@
         <h5 class="card-title">Welcome to RAMENINDEX.COM!</h5>
         <p class="card-text">This site was created to be a means of collecting and sharing reviews of the wide variety of "instant" noodles available. In time, we hope that this will become a comprehensive database of all the great (and not so great) ramen options out there!</p>
 	<p class="card-text">Anyone can submit a review to the database: just sign up for a free account (we will <i>never</i> email you) to unlock the "post" option.</p>
-	<p class="card-text">When you submit a new post, the image will be analyzed for the dominant colors to create a "palette" for the detail page. This makes a cool custom theme for each page, but note that those pages will load pretty slowly since this site is served up from a Raspberry Pi 3 and image processing isn't cheap!</p>
+	<p class="card-text">When you submit a new post, the image will be analyzed for its dominant colors to create a "palette" for the detail page. This takes a few seconds since this site is being served up from a Raspberry Pi 3 and image processing isn't cheap!</p>
 	<div class="text-center">
 	{% if user.is_authenticated %}
 	    <a href="/post" class="btn btn-large btn-secondary text-center" role="button">Submit a new product!</a>

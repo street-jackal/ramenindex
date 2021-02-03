@@ -36,8 +36,10 @@ class CreatePostView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('project_index')
 
     def form_valid(self, form):
+
         self.object = form.save()
         self.object.set_colors()
+        self.object = form.save()
         return HttpResponseRedirect(self.get_success_url())
 
 def signup(request):
